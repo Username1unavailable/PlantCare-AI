@@ -1,0 +1,159 @@
+body {
+  font-family: 'Nahh', lucida console, monaco;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  z-index: 3;
+  background-color: rgb(55, 255, 0);
+}
+
+h1 {
+  font-style: 'Nahh', lucida console, monaco;
+  color: #10f000;
+  z-index: 3;
+}
+
+h2 {
+  font-style: 'Nahh', lucida console, monaco;
+  color: #04ff00;
+  z-index: 3;
+}
+
+h3 {
+  font-style: 'Nahh', lucida console, monaco;
+  color: white;
+  z-index: 3;
+}
+
+button {
+  position: relative;
+  width: 200px;
+  padding: 15px 0;
+  text-align: center;
+  margin: 20px 10px;
+  font-weight: bold;
+  border: 2px solid #37ff00;
+  background: transparent;
+  color: #ffffff;
+  cursor: pointer;
+  overflow: hidden;
+  text-transform: uppercase;
+  z-index: 3;
+}
+
+span {
+  background: #04ff00;
+  height: 100%;
+  width: 0;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: -1;
+  transition: 0.5s;
+}
+
+button:hover span {
+  width: 100%;
+}
+
+.wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: linear-gradient(90deg, black 0%, darkgreen 35%, lime 100%);
+}
+
+@font-face {
+  font-family: 'Nahh';
+  src: url(fonts/NanumGothic-Regular.ttf) format(truetype);
+}
+
+@font-face {
+  font-family: 'Farmgarden';
+  src: url(fonts/farmgarden.ttf) format(truetype);
+}
+
+@font-face {
+  font-family: 'Gardena';
+  src: url(fonts/Gardena.ttf) format(truetype);
+}
+
+.box div {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background-color: transparent;
+  border: 6px solid rgba(255, 255, 255, 0.8);
+}
+
+.box div:nth-child(1) {
+  top: 12%;
+  left: 42%;
+  animation: animate 10s linear infinite;
+}
+
+.box div:nth-child(2) {
+  top: 70%;
+  left: 50%;
+  animation: animate 7s linear infinite;
+}
+
+.box div:nth-child(3) {
+  top: 17%;
+  left: 6%;
+  animation: animate 9s linear infinite;
+}
+
+.box div:nth-child(4) {
+  top: 20%;
+  left: 60%;
+  animation: animate 10s linear infinite;
+}
+
+.box div:nth-child(5) {
+  top: 67%;
+  left: 10%;
+  animation: animate 6s linear infinite;
+}
+
+.box div:nth-child(6) {
+  top: 80%;
+  left: 70%;
+  animation: animate 12s linear infinite;
+}
+
+.box div:nth-child(7) {
+  top: 60%;
+  left: 80%;
+  animation: animate 15s linear infinite;
+}
+
+.box div:nth-child(8) {
+  top: 32%;
+  left: 25%;
+  animation: animate 16s linear infinite;
+}
+
+.box div:nth-child(9) {
+  top: 90%;
+  left: 25%;
+  animation: animate 9s linear infinite;
+}
+
+.box div:nth-child(10) {
+  top: 20%;
+  left: 80%;
+  animation: animate 5s linear infinite;
+}
+
+@keyframes animate{
+  0%{
+  transform: scale(0) translateY(0) rotate(0);
+  opacity: 1;
+  }
+100%{
+  transform: scale(1.3) translateY(-90px) rotate (360deg);
+  opacity: 0;
+  }
+}

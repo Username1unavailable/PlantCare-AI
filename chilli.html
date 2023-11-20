@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>TMV Visual Detector</title>
+
+  <!-- import the webpage's stylesheet -->
+  <link rel="stylesheet" href="food.css" />
+
+  <!-- import the webpage's javascript file -->
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <div class="wrapper">
+    <h1>Chili</h1>
+    <h2>Click Start to Begin</h2>
+    <button type="button" onclick="init()"><span></span>
+      <h3>Start</h3>
+    </button>
+    <div id="webcam-container"></div>
+    <div id="label-container"></div>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+    <script type="text/javascript">
+      // More API functions here:
+      // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
+
+      // the link to your model provided by Teachable Machine export panel
+      const URL = "https://teachablemachine.withgoogle.com/models/gZ-BmZrC0/";
+
+      let model, webcam, labelContainer, maxPredictions;
+
+      // Load the image model and setup the webcam
+      async function init() {
+        const modelURL = URL + "model.json";
+        const metadataURL = URL + "metadata.json";
+
+        // load the model and metadata
+        // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
+        // or files from your local hard drive
+        // Note: the pose library adds "tmImage" object to your window (window.tmImage)
+        model = await tmImage.load(modelURL, metadataURL);
+        maxPredictions = model.getTotalClasses();
+
+        // Convenience function to setup a webcam
+        const flip = true; // whether to flip the webcam
+        webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
+        await webcam.setup(); // request access to the webcam
+        await webcam.play();
+        window.requestAnimationFrame(loop);
+
+        // append elements to the DOM
+        document.getElementById("webcam-container").appendChild(webcam.canvas);
+        labelContainer = document.getElementById("label-container");
+        for (let i = 0; i < maxPredictions; i++) { // and class labels
+          labelContainer.appendChild(document.createElement("div"));
+        }
+      }
+
+      async function loop() {
+        webcam.update(); // update the webcam frame
+        await predict();
+        window.requestAnimationFrame(loop);
+      }
+
+      // run the webcam image through the image model
+      async function predict() {
+        // predict can take in an image, video or canvas html element
+        const prediction = await model.predict(webcam.canvas);
+        for (let i = 0; i < maxPredictions; i++) {
+          if (i == 0 && prediction[i].probability > 0.5) {
+            document.getElementById('opinion').innerHTML = "Infection detected"
+          } else if (i == 1 && prediction[i].probability > 0.1) {
+            document.getElementById('opinion').innerHTML = "Infection not detected"
+          }
+        }
+      }
+    </script>
+
+
+    <!-- include the Glitch button to show what the webpage is about and
+          to make it easier for folks to view source and remix -->
+    <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
+    <script src="https://button.glitch.me/button.js" defer></script>
+    <h2 id="opinion"></h2>
+    <h2>What to do if a chili has pepper mildew:</h2>
+    <h3>Plant Resistant Varieties: Choose chili pepper varieties that have some level of resistance to powdery mildew. Resistant varieties can help reduce the severity of the disease.
+
+Proper Plant Spacing: Provide adequate spacing between chili pepper plants to promote good airflow and reduce humidity around the foliage. This can help discourage powdery mildew development.
+
+Watering Practices: Avoid overhead irrigation or watering late in the day to minimize leaf wetness. Instead, use drip irrigation or water at the base of the plants to keep the foliage dry.
+
+Remove Infected Plant Material: Regularly inspect your chili plants and remove any infected leaves or plant debris. Dispose of the infected material away from the growing area to prevent the spread of the disease.
+
+      
+Fungicide Applications: Fungicides labeled for powdery mildew control can be applied preventively or when symptoms are first observed. Consult with local agricultural extension services or experts for recommended fungicides and appropriate application timings. Follow the instructions on the fungicide label regarding rates, safety precautions, and pre-harvest intervals.
+
+Cultural Practices: Maintain overall plant health by providing proper nutrition, avoiding excessive nitrogen fertilization, and ensuring sufficient sunlight for the plants. Healthy plants are less susceptible to diseases.
+
+Beneficial Organisms: Encourage beneficial organisms, such as ladybugs and lacewings, which feed on powdery mildew and can help control its spread.
+
+Crop Rotation: Rotate chili peppers with non-host plants to break the disease cycle and reduce the pathogen's population in the soil.
+
+</h3>
+
+    <button type="button"><a href="index.html"><span></span></span>
+        <h3>Back</h3>
+      </a></button>
+    <div class="box">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+
+    </div>
+  </div>
+</body>
+
+</html>
